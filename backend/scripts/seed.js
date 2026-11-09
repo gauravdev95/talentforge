@@ -9,7 +9,8 @@
  *   15 job postings across 5 companies
  *   15 applications at various pipeline stages
  *
- * Password for every account:  TalentForge@123
+ * Demo password: set DEMO_USER_PASSWORD in the environment, or the seeder
+ * generates a random one for the run and prints it once to stdout.
  *
  * Student `resume` links point at the sample PDFs in frontend/public/resumes/,
  * served by the CRA dev server. Regenerate them with:
@@ -33,7 +34,10 @@ const TestCaseResult = require("../src/models/TestCase.model");
 require("dotenv").config({ path: require("path").join(__dirname, "..", ".env") });
 
 // ── constants ───────────────────────────────────────────────────────
-const PASSWORD_HASH = bcrypt.hashSync("TalentForge@123", 10);
+const crypto = require("crypto");
+const DEMO_PASSWORD = process.env.DEMO_USER_PASSWORD || crypto.randomBytes(12).toString("base64").slice(0, 16);
+const DEMO_PASSWORD_GENERATED = !process.env.DEMO_USER_PASSWORD;
+const PASSWORD_HASH = bcrypt.hashSync(DEMO_PASSWORD, 10);
 const TODAY = new Date();
 const addDays = (d, n) => { const dt = new Date(d); dt.setDate(dt.getDate() + n); return dt; };
 
@@ -699,7 +703,7 @@ const main = async () => {
   console.log("  Student users:    " + stUsers.length);
   console.log("  Jobs:             " + createdJobs.length);
   console.log("  Applications:     " + appCount);
-  console.log("  Password (all):   TalentForge@123");
+  console.log(DEMO_PASSWORD_GENERATED ? `  Password (all):   ${DEMO_PASSWORD} (auto-generated for this seed run)` : "  Password (all):   from DEMO_USER_PASSWORD");
   console.log("=".repeat(60));
 
   await mongoose.disconnect();

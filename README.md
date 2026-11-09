@@ -87,7 +87,7 @@ The hybrid keyword-plus-semantic approach follows how production staffing system
 ## Project layout
 
 ```
-Backend/                 Express API
+backend/                 Express API
 ├── src/
 │   ├── controllers/     route handlers (auth, job, test, ...)
 │   ├── models/          Mongoose schemas
@@ -136,11 +136,11 @@ npm install
 npm start
 ```
 
-The app opens at `http://localhost:3000`. For the coding round, either run the included Judge0 stub (`python Backend/scripts/judge0_stub.py`) or point `JUDGE0_URL` at a self-hosted Judge0 instance.
+The app opens at `http://localhost:3000`. For the coding round, either run the included Judge0 stub (`python backend/scripts/judge0_stub.py`) or point `JUDGE0_URL` at a self-hosted Judge0 instance.
 
 ### Environment
 
-`Backend/.env`:
+`backend/.env`:
 
 ```env
 PORT=5000
@@ -170,10 +170,10 @@ REACT_APP_CLOUDINARY_UPLOAD_PRESET=...   # unsigned upload preset
 Seed the database with realistic test data and 20 applications at various pipeline stages:
 
 ```bash
-cd Backend && node scripts/seed.js
+cd backend && node scripts/seed.js
 ```
 
-All accounts use the password **`TalentForge@123`**.
+All accounts share one demo password: set `DEMO_USER_PASSWORD` before seeding, or the seeder generates a random one for the run and prints it once to stdout.
 
 | Name | Email | Role |
 |------|-------|------|
